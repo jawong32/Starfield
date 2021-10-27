@@ -76,7 +76,6 @@ class Red extends Green {
     rgb = color(255, 100, 100);
   }
   
-  @Override
   void show() {
     pushMatrix();
     rotateX(90);

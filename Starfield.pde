@@ -1,7 +1,7 @@
-Particle[] particles = new Particle[1000];
+Particle[] particles = new Particle[3000];
 
 void setup() {
-  size(500, 500, P3D);
+  size(750, 750, P3D);
   rectMode(CENTER);
   noStroke();
   background(0);
@@ -12,14 +12,7 @@ void setup() {
 
 void draw() {
   background(0);
-  translate(0, 0, -350);
-  rotateX(degrees(-35));
-  for (Particle p : particles) {
-    p.move();
-    p.show();
-  }
-  translate(0, 0, 35);
-  rotateX(degrees(-10));
+  rotateX(degrees(90));
   for (Particle p : particles) {
     p.move();
     p.show();
@@ -39,9 +32,9 @@ class Particle {
   color rgb;
 
   Particle() {
-    x = Rand.num(1000, -500);
-    y = Rand.num(800, -400);
-    z = Rand.num(600, -300);
+    x = Rand.num(1500, -750);
+    y = Rand.num(1500, -750);
+    z = Rand.num(1500, -750);
 
     vY = Rand.num(10, 3);
 
@@ -51,7 +44,7 @@ class Particle {
   }
 
   float vX() {
-    return Rand.num(6, -3);
+    return Rand.num(4, -2);
   }
 
   float vZ() {
@@ -71,7 +64,7 @@ class Particle {
     pushMatrix();
     translate(0, 0, z);
     fill(rgb);
-    rect(x, y, 20, 20);
+    rect(x, y, 15, 15);
     popMatrix();
   }
 }

@@ -1,4 +1,4 @@
-Particle[] particles = new Particle[22500];
+Particle[] particles = new Particle[2000];
 
 void setup() {
   size(750, 750, P3D);

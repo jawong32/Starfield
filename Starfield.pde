@@ -1,19 +1,19 @@
-Particle[] particles = new Particle[2000];
+Green[] Greens = new Green[2000];
 
 void setup() {
   size(750, 750, P3D);
   rectMode(CENTER);
   noStroke();
   background(0);
-  for (int i = 0; i < particles.length; i++) {
-    particles[i] = new Particle();
+  for (int i = 0; i < Greens.length; i++) {
+    Greens[i] = Rand.num(10, 0) < 0.25 ? new Red() : new Green();
   }
 }
 
 void draw() {
   background(0);
   rotateX(degrees(90));
-  for (Particle p : particles) {
+  for (Green p : Greens) {
     p.move();
     p.show();
   }
@@ -25,20 +25,21 @@ static class Rand {
   }
 }
 
-class Particle {
+class Green {
   float x, y, z;
   float vY;
   float angle;
   color rgb;
 
-  Particle() {
+  Green() {
     x = Rand.num(1500, -750);
     y = Rand.num(1500, -750);
     z = Rand.num(1500, -750);
 
     vY = Rand.num(10, 3);
 
-    rgb = color(Rand.num(256, 0), Rand.num(256, 0), Rand.num(256, 0));
+    //rgb = color(Rand.num(256, 0), Rand.num(256, 0), Rand.num(256, 0));
+    rgb = color(100, 255, 100);
 
     angle = Rand.num(360, 0);
   }
@@ -69,5 +70,17 @@ class Particle {
   }
 }
 
-class OddballParticle {
+class Red extends Green {
+  Red() {
+    super();
+    rgb = color(255, 100, 100);
+  }
+  
+  @Override
+  void show() {
+    pushMatrix();
+    rotateX(90);
+    super.show();
+    popMatrix();
+  }
 }

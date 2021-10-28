@@ -30,7 +30,7 @@ class Zoomer {
   float x, y, z;
   float vY;
   float angle;
-  char shape;
+  int shape;
   color rgb;
   int size;
 
@@ -41,8 +41,7 @@ class Zoomer {
     vY = Rand.num(10, 3);
     rgb = color(100, 255, 100, Rand.num(256, 100));
     angle = Rand.num(360, 0);
-    //shape = (char) (int) Rand.num(96, 65189);
-    shape = 'a';
+    shape = (int) Rand.num(2, 0);
     size = 30;
   }
 

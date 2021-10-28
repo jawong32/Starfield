@@ -1,5 +1,4 @@
 Zoomer[] Zoomers = new Zoomer[2500];
-int[] symbols = new int[] {65189, 65190, 65};
 
 void setup() {
   size(750, 750, P3D);
@@ -58,9 +57,7 @@ class Zoomer {
     if (y < -500) {
       y = Rand.num(600, 0);
     }
-    y -= vY;
-    //x += vX();
-    //z += vZ();
+    y -= mousePressed ? vY * 2 : vY;
   }
 
   void show() {

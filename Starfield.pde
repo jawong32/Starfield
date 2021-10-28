@@ -1,4 +1,4 @@
-Zoomer[] Zoomers = new Zoomer[2500];
+Zoomer[] Zoomers = new Zoomer[2000];
 
 void setup() {
   size(750, 750, P3D);

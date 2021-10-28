@@ -1,19 +1,21 @@
-Green[] Greens = new Green[2000];
+Zoomer[] Zoomers = new Zoomer[2500];
+int[] symbols = new int[] {65189, 65190, 65};
 
 void setup() {
   size(750, 750, P3D);
   rectMode(CENTER);
+  textAlign(CENTER);
   noStroke();
   background(0);
-  for (int i = 0; i < Greens.length; i++) {
-    Greens[i] = Rand.num(10, 0) < 0.25 ? new Red() : new Green();
+  for (int i = 0; i < Zoomers.length; i++) {
+    Zoomers[i] = Rand.num(10, 0) < 0.25 ? new Floater() : new Zoomer();
   }
 }
 
 void draw() {
   background(0);
   rotateX(degrees(90));
-  for (Green p : Greens) {
+  for (Zoomer p : Zoomers) {
     p.move();
     p.show();
   }
@@ -25,23 +27,23 @@ static class Rand {
   }
 }
 
-class Green {
+class Zoomer {
   float x, y, z;
   float vY;
   float angle;
+  char shape;
   color rgb;
+  int size;
 
-  Green() {
+  Zoomer() {
     x = Rand.num(1500, -750);
     y = Rand.num(1500, -750);
     z = Rand.num(1500, -750);
-
     vY = Rand.num(10, 3);
-
-    //rgb = color(Rand.num(256, 0), Rand.num(256, 0), Rand.num(256, 0));
-    rgb = color(100, 255, 100);
-
+    rgb = color(100, 255, 100, Rand.num(256, 100));
     angle = Rand.num(360, 0);
+    shape = (char) (int) Rand.num(96, 65189);
+    size = 30;
   }
 
   float vX() {
@@ -57,25 +59,27 @@ class Green {
       y = Rand.num(600, 0);
     }
     y -= vY;
-    x += vX();
-    z += vZ();
+    //x += vX();
+    //z += vZ();
   }
 
   void show() {
     pushMatrix();
     translate(0, 0, z);
     fill(rgb);
-    rect(x, y, 15, 15);
+    textSize(size);
+    text(shape, x, y);
     popMatrix();
   }
 }
 
-class Red extends Green {
-  Red() {
+class Floater extends Zoomer {
+  Floater() {
     super();
-    rgb = color(255, 100, 100);
+    rgb = color(255, 100, 100, Rand.num(256, 100));
+    size = 100;
   }
-  
+
   void show() {
     pushMatrix();
     rotateX(90);

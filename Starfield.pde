@@ -67,12 +67,12 @@ class Zoomer {
     fill(rgb);
     //textSize(size);
     //text(shape, x, y);
-    //rect(x, y, size, size);
+    rect(x, y, size, size);
     beginShape();
-    vertex(x, y);
+    /*vertex(x, y);
     vertex(x + size, y);
     vertex(x + size, y + size);
-    vertex(x, y + size);
+    vertex(x, y + size);*/
     endShape();
     popMatrix();
   }

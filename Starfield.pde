@@ -12,7 +12,6 @@ void setup() {
 }
 
 void draw() {
-  lights();
   background(0);
   rotateX(degrees(90));
   for (Zoomer p : Zoomers) {
@@ -30,20 +29,17 @@ static class Rand {
 class Zoomer {
   float x, y, z;
   float vY;
-  float angle;
-  int shape;
+  int shape, size;
   color rgb;
-  int size;
 
   Zoomer() {
     x = Rand.num(1500, -750);
     y = Rand.num(1500, -750);
     z = Rand.num(1500, -750);
     vY = Rand.num(10, 3);
-    rgb = color(100, 255, 100, Rand.num(256, 100));
-    angle = Rand.num(360, 0);
     shape = (int) Rand.num(2, 0);
     size = 30;
+    rgb = color(100, 255, 100, Rand.num(256, 100));
   }
 
   float vX() {
@@ -65,15 +61,9 @@ class Zoomer {
     pushMatrix();
     translate(0, 0, z);
     fill(rgb);
-    //textSize(size);
-    //text(shape, x, y);
-    rect(x, y, size, size);
-    beginShape();
-    /*vertex(x, y);
-    vertex(x + size, y);
-    vertex(x + size, y + size);
-    vertex(x, y + size);*/
-    endShape();
+    if (size < 100) {
+      rect(x, y, size, size);
+    }
     popMatrix();
   }
 }
@@ -89,6 +79,12 @@ class Floater extends Zoomer {
     pushMatrix();
     rotateX(90);
     super.show();
+    beginShape();
+    vertex(x, y, z + Rand.num(60, -30));
+    vertex(x + size, y, z + Rand.num(60, -30));
+    vertex(x + size, y + size, z +  Rand.num(60, -30));
+    vertex(x, y + size, z +  Rand.num(60, -30));
+    endShape();
     popMatrix();
   }
 }

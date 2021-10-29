@@ -1,4 +1,4 @@
-Zoomer[] Zoomers = new Zoomer[2000];
+Zoomer[] Zoomers = new Zoomer[1000];
 
 void setup() {
   size(750, 750, P3D);
@@ -12,6 +12,7 @@ void setup() {
 }
 
 void draw() {
+  lights();
   background(0);
   rotateX(degrees(90));
   for (Zoomer p : Zoomers) {
@@ -64,8 +65,15 @@ class Zoomer {
     pushMatrix();
     translate(0, 0, z);
     fill(rgb);
-    textSize(size);
-    text(shape, x, y);
+    //textSize(size);
+    //text(shape, x, y);
+    //rect(x, y, size, size);
+    beginShape();
+    vertex(x, y);
+    vertex(x + size, y);
+    vertex(x + size, y + size);
+    vertex(x, y + size);
+    endShape();
     popMatrix();
   }
 }

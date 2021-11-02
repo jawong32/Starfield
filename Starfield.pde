@@ -1,11 +1,9 @@
-Zoomer[] Zoomers = new Zoomer[1000];
+Zoomer[] Zoomers = new Zoomer[2000];
 
 void setup() {
   size(750, 750, P3D);
   rectMode(CENTER);
-  textAlign(CENTER);
   noStroke();
-  background(0);
   for (int i = 0; i < Zoomers.length; i++) {
     Zoomers[i] = Rand.num(10, 0) < 0.25 ? new Floater() : new Zoomer();
   }
@@ -51,7 +49,7 @@ class Zoomer {
   }
 
   void move() {
-    if (y < -500) {
+    if (y < -700) {
       y = Rand.num(600, 0);
     }
     y -= mousePressed ? vY * 2 : vY;
@@ -61,30 +59,52 @@ class Zoomer {
     pushMatrix();
     translate(0, 0, z);
     fill(rgb);
-    if (size < 100) {
-      rect(x, y, size, size);
-    }
+    rect(x, y, size, size);
     popMatrix();
   }
 }
 
 class Floater extends Zoomer {
+  float sizeX, sizeY, driftX, driftY;
   Floater() {
     super();
+    vY = Rand.num(6, 1);
     rgb = color(255, 100, 100, Rand.num(256, 100));
-    size = 100;
+    size = 60;
+    sizeX = size;
+    sizeY = size;
+    driftX = Rand.num(50, size);
+    driftY = Rand.num(50, size);
+  }
+
+  void move() {
+    super.move();
+    sizeX += sizeX < driftX ? Rand.num(1, 0) : Rand.num(0, -1);
+    sizeY += sizeY < driftY ? Rand.num(1, 0) : Rand.num(0, -1);
+
+    if (sizeX > driftX) {
+      driftX = size;
+    }
+
+    if (sizeY > driftY) {
+      driftY = size;
+    }
+
+    if (sizeX < size) {
+      driftX = Rand.num(50, size);
+    }
+
+    if (sizeY < size) {
+      driftY = Rand.num(50, size);
+    }
   }
 
   void show() {
     pushMatrix();
-    rotateX(90);
-    super.show();
-    beginShape();
-    vertex(x, y, z + Rand.num(60, -30));
-    vertex(x + size, y, z + Rand.num(60, -30));
-    vertex(x + size, y + size, z +  Rand.num(60, -30));
-    vertex(x, y + size, z +  Rand.num(60, -30));
-    endShape();
+    translate(0, 0, z);
+    fill(rgb);
+    rotateX(degrees(-90));
+    ellipse(x, y, sizeX, sizeY);
     popMatrix();
   }
 }

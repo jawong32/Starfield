@@ -3,6 +3,7 @@ Zoomer[] Zoomers = new Zoomer[2000];
 void setup() {
   size(750, 750, P3D);
   rectMode(CENTER);
+  colorMode(HSB, 360, 100, 100);
   noStroke();
   for (int i = 0; i < Zoomers.length; i++) {
     Zoomers[i] = Rand.num(10, 0) < 0.25 ? new Floater() : new Zoomer();
@@ -10,7 +11,7 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(0, 0, 0, 1);
   rotateX(degrees(90));
   for (Zoomer p : Zoomers) {
     p.move();
@@ -28,7 +29,7 @@ class Zoomer {
   float x, y, z;
   float vY;
   int shape, size;
-  color rgb;
+  color hsl;
 
   Zoomer() {
     x = Rand.num(1500, -750);
@@ -37,7 +38,7 @@ class Zoomer {
     vY = Rand.num(10, 3);
     shape = (int) Rand.num(2, 0);
     size = 30;
-    rgb = color(100, 255, 100, Rand.num(256, 100));
+    hsl = color(89, 100, Rand.num(50, 50));
   }
 
   float vX() {
@@ -58,7 +59,7 @@ class Zoomer {
   void show() {
     pushMatrix();
     translate(0, 0, z);
-    fill(rgb);
+    fill(hsl);
     rect(x, y, size, size);
     popMatrix();
   }
@@ -69,7 +70,7 @@ class Floater extends Zoomer {
   Floater() {
     super();
     vY = Rand.num(6, 1);
-    rgb = color(255, 100, 100, Rand.num(256, 100));
+    hsl = color(360, 100, Rand.num(70, 30));
     size = 60;
     sizeX = size;
     sizeY = size;
@@ -101,8 +102,8 @@ class Floater extends Zoomer {
 
   void show() {
     pushMatrix();
-    translate(0, 0, z);
-    fill(rgb);
+    translate(0, 0, z + 100);
+    fill(hsl);
     rotateX(degrees(-90));
     ellipse(x, y, sizeX, sizeY);
     popMatrix();

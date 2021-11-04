@@ -1,4 +1,4 @@
-Zoomer[] Zoomers = new Zoomer[2000];
+Zoomer[] Zoomers = new Zoomer[1500];
 
 void setup() {
   size(750, 750, P3D);
@@ -38,7 +38,7 @@ class Zoomer {
     vY = Rand.num(10, 3);
     shape = (int) Rand.num(2, 0);
     size = 30;
-    hsl = color(89, 100, Rand.num(50, 50));
+    hsl = color(130, 80, Rand.num(50, 50));
   }
 
   float vX() {
@@ -80,8 +80,8 @@ class Floater extends Zoomer {
 
   void move() {
     super.move();
-    sizeX += sizeX < driftX ? Rand.num(1, 0) : Rand.num(0, -1);
-    sizeY += sizeY < driftY ? Rand.num(1, 0) : Rand.num(0, -1);
+    sizeX += sizeX < driftX ? Rand.num(5, 0) : Rand.num(0, -5);
+    sizeY += sizeY < driftY ? Rand.num(5, 0) : Rand.num(0, -5);
 
     if (sizeX > driftX) {
       driftX = size;

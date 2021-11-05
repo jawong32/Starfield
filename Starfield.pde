@@ -6,7 +6,7 @@ void setup() {
   colorMode(HSB, 360, 100, 100);
   noStroke();
   for (int i = 0; i < Zoomers.length; i++) {
-    Zoomers[i] = Rand.num(10, 0) < 0.25 ? new Floater() : new Zoomer();
+    Zoomers[i] = Rand.num(10, 0) < 0.1 ? new Floater() : new Zoomer();
   }
 }
 
@@ -67,10 +67,12 @@ class Zoomer {
 
 class Floater extends Zoomer {
   float sizeX, sizeY, driftX, driftY;
+  int hslDrift;
   Floater() {
     super();
     vY = Rand.num(6, 1);
     hsl = color(360, 100, Rand.num(70, 30));
+    hslDrift = (int) Rand.num(-360, hue(hsl));
     size = 60;
     sizeX = size;
     sizeY = size;
@@ -92,20 +94,32 @@ class Floater extends Zoomer {
     }
 
     if (sizeX < size) {
-      driftX = Rand.num(50, size);
+      driftX = Rand.num(100, size);
     }
 
     if (sizeY < size) {
-      driftY = Rand.num(50, size);
+      driftY = Rand.num(100, size);
     }
   }
 
   void show() {
     pushMatrix();
-    translate(0, 0, z + 100);
+    translate(500, 500, z);
     fill(hsl);
     rotateX(degrees(-90));
     ellipse(x, y, sizeX, sizeY);
     popMatrix();
+    hslShift();
+    System.out.println(hue(hsl));
+  }
+  
+  void hslShift() {
+    if (hue(hsl) > hslDrift) {
+      hsl = color(hue(hsl) + Rand.num(4, 0), 100, brightness(hsl));
+    }
+    
+    if (hue(hsl) < hslDrift) {
+      hslDrift = 360;
+    }
   }
 }

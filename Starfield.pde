@@ -1,4 +1,4 @@
-Zoomer[] Zoomers = new Zoomer[1500];
+Zoomer[] Zoomers = new Zoomer[1000];
 
 void setup() {
   size(750, 750, P3D);
@@ -6,7 +6,7 @@ void setup() {
   colorMode(HSB, 360, 100, 100);
   noStroke();
   for (int i = 0; i < Zoomers.length; i++) {
-    Zoomers[i] = Rand.num(10, 0) < 0.1 ? new Floater() : new Zoomer();
+    Zoomers[i] = Rand.num(10, 0) < 0.12 ? new Floater() : new Zoomer();
   }
 }
 
@@ -110,16 +110,9 @@ class Floater extends Zoomer {
     ellipse(x, y, sizeX, sizeY);
     popMatrix();
     hslShift();
-    System.out.println(hue(hsl));
   }
   
   void hslShift() {
-    if (hue(hsl) > hslDrift) {
-      hsl = color(hue(hsl) + Rand.num(4, 0), 100, brightness(hsl));
-    }
-    
-    if (hue(hsl) < hslDrift) {
-      hslDrift = 360;
-    }
+    hsl = color(hue(hsl) + Rand.num(4, 0), 100, brightness(hsl));
   }
 }
